@@ -72,10 +72,10 @@ const ProfilePage = () => {
       <div className="w-[80%] mx-auto shadow-xl p-8 rounded-md outline outline-1 outline-brand">
         <div className="flex justify-between items-center">
           <h1 className="md:text-3xl font-semibold">My Profile</h1>
-          <div className="flex items-center text-brand text-xl font-bold cursor-pointer">
+          {/* <div className="flex items-center text-brand text-xl font-bold cursor-pointer">
             <p className="mr-2">Edit</p>
             <Icon icon="bxs:edit" />
-          </div>
+          </div> */}
         </div>
         <div className="my-5 md:w-[80%] mx-auto flex flex-col md:flex-row items-center">
           <div className="w-[30%]">

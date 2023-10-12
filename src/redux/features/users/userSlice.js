@@ -14,6 +14,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { toggleState, setPriceRange } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;

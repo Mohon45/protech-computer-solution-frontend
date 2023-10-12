@@ -102,7 +102,7 @@ const NavbarPage = () => {
           </ul>
         </div>
         <div className="navbar-end ">
-          {!user ? (
+          {user ? (
             <>
               <div className="dropdown dropdown-end">
                 <label
@@ -144,8 +144,8 @@ const NavbarPage = () => {
           ) : (
             <div>
               <Link
-                href="/"
-                className="text-white bg-red-600 px-5 py-3 text-xl font-semibold rounded"
+                href="/login"
+                className="outline outline-1 outline-brand hover:bg-brand px-5 py-3 text-xl font-semibold rounded"
               >
                 Login
               </Link>
