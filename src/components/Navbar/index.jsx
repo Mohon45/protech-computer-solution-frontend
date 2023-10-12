@@ -4,11 +4,13 @@ import Link from "next/link";
 import NavLogo from "../../assets/pro-tech1.png";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const NavbarPage = () => {
+  const router = useRouter();
   const user = useSelector((state) => state.user.user);
   return (
-    <div className="bg-gradient-to-r z-[-1] from-gradient-green  to-gradient-blue shadow-xl">
+    <div className="bg-gradient-to-r  from-gradient-green  to-gradient-blue shadow-lg fixed top-0 left-0 right-0 z-[999] ">
       <div className="navbar w-[90%] mx-auto py-5">
         <div className="navbar-start">
           <div className="dropdown">
@@ -103,26 +105,16 @@ const NavbarPage = () => {
           {!user ? (
             <>
               <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => router.push("/cart")}
+                >
                   <div className="indicator">
                     <Icon icon="mdi:cart-outline" color="#04D98C" width={30} />
                     <span className="badge badge-sm indicator-item">0</span>
                   </div>
                 </label>
-                <div
-                  tabIndex={0}
-                  className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-                >
-                  <div className="card-body">
-                    <span className="font-bold text-lg">8 Items</span>
-                    <span className="text-info">Subtotal: $999</span>
-                    <div className="card-actions">
-                      <button className="btn btn-primary btn-block">
-                        View cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="dropdown dropdown-end ml-3">
@@ -139,13 +131,9 @@ const NavbarPage = () => {
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a className="justify-between">
+                    <Link href="/profile" className="justify-between">
                       Profile
-                      <span className="badge">New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>Settings</a>
+                    </Link>
                   </li>
                   <li>
                     <a>Logout</a>

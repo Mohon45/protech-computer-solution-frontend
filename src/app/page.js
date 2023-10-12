@@ -23,7 +23,7 @@ export default function Home() {
     });
   }, []);
   return (
-    <main className="bg-gradient-to-r z-[-1] from-gradient-green  to-gradient-blue">
+    <main className="bg-gradient-to-r from-gradient-green  to-gradient-blue">
       <div>
         <div
           className="bg-[#eeeeeecb] p-6 w-[40%] ml-5 absolute bottom-20 rounded-tr-[70px] invisible md:visible"
