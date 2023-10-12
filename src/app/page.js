@@ -11,6 +11,8 @@ import dataRecovery from "../assets/data-recovery.jpg";
 import { Icon } from "@iconify/react";
 import { useEffect } from "react";
 import ServicePage from "@/components/UI/SpecifiqService";
+import HomeReview from "@/components/UI/UserReviewSection/HomeReview";
+import HomeNews from "@/components/UI/NewsandBlog/HomeNews";
 
 export default function Home() {
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function Home() {
         <h1 className="text-2xl md:text-5xl font-bold text-center flex items-center justify-center py-10">
           Amazing facts about ProTech
         </h1>
-        <div className="w-[85%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-8">
+        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-8">
           <div className="outline outline-2 outline-brand rounded-md">
             <Icon
               icon="icon-park-outline:every-user"
@@ -143,6 +145,14 @@ export default function Home() {
         <h1 className="text-2xl md:text-5xl font-bold text-center flex items-center justify-center py-10">
           Client Reviews
         </h1>
+        <HomeReview />
+      </div>
+
+      <div>
+        <h1 className="text-2xl md:text-5xl font-bold text-center flex items-center justify-center py-10">
+          Letest News & Blog
+        </h1>
+        <HomeNews />
       </div>
     </main>
   );
