@@ -32,7 +32,7 @@ export default function Home() {
         >
           <h1 className="text-xl font-semibold">ProTech Computer Solutions</h1>
           <div className="flex justify-between items-center my-4">
-            <Image src={googleReview} className="w-[150px]" />
+            <Image alt="image " src={googleReview} className="w-[150px]" />
             <h1 className="text-2xl font-bold">HUNDREDS OF 5 STAR REVIEWS</h1>
           </div>
           <div className="h-[1px] bg-gray-500"></div>
@@ -45,7 +45,11 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <Image src={bannerImage} className="w-[100%] md:h-[90vh]" />
+        <Image
+          alt="image "
+          src={bannerImage}
+          className="w-[100%] md:h-[90vh]"
+        />
       </div>
 
       <div className="w-[90%] mx-auto py-8">
@@ -63,17 +67,26 @@ export default function Home() {
 
         <div className="flex items-center">
           <div className="w-[50%]">
-            <Image src={upcomingServiceImage} className="md:w-[60%] mx-auto" />
+            <Image
+              alt="image "
+              src={upcomingServiceImage}
+              className="md:w-[60%] mx-auto"
+            />
           </div>
           <div className="w-[50%] flex flex-col md:flex-row justify-evenly items-center">
             <div className="bg-brand w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-md py-5">
-              <Image src={homeautomation} className="w-[60%] mx-auto" />
+              <Image
+                alt="image "
+                src={homeautomation}
+                className="w-[60%] mx-auto"
+              />
               <h1 className="md:text-xl font-semibold text-center">
                 Home Automation
               </h1>
             </div>
             <div className="bg-brand w-[150px] h-[150px] mt-2 md:mt-0 md:w-[200px] md:h-[200px] rounded-md py-5">
               <Image
+                alt="image "
                 src={dataRecovery}
                 className="w-[80px] h-[80px] md:w-[110px] md:h-[110px] mx-auto rounded-full"
               />

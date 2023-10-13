@@ -31,7 +31,7 @@ const PhoneRepair = () => {
         </div>
       </div>
       <div className="w-[50%]">
-        <Image src={phoneRepairImage} />
+        <Image alt="image " src={phoneRepairImage} />
       </div>
     </div>
   );

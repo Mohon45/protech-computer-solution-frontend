@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSignUpMutation } from "@/redux/api/authApi";
 import Loader from "@/components/Loader";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,10 @@ const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [term, setTerm] = useState(false);
   const [signUp, signUpresult] = useSignUpMutation();
+
+  const router = useRouter();
 
   const onchange = (e) => {
     setDisabled(true);
@@ -26,7 +30,7 @@ const page = () => {
       setPassword(e.target.value);
     }
 
-    if (name && email && password) {
+    if (e.target.name === "term" && e.target.checked) {
       setDisabled(false);
     }
   };
@@ -43,6 +47,7 @@ const page = () => {
       const result = await signUp(newData);
       if (result.data?.data) {
         setLoading(false);
+        router.push("/login");
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +60,11 @@ const page = () => {
       <div className="hero py-5 bg-base-200">
         <div className="md:flex justify-evenly items-center">
           <div className="w-[40%]  text-center lg:text-left hidden md:block">
-            <Image src={registerImage} className="w-[70%] mx-auto" />
+            <Image
+              alt="image "
+              src={registerImage}
+              className="w-[70%] mx-auto"
+            />
           </div>
           <div className="md:w-[60%] mx-auto h-[500px] card flex-shrink-0 max-w-sm shadow-2xl bg-base-100">
             <form className="card-body">
@@ -98,15 +107,21 @@ const page = () => {
                   required
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
+                  <input
+                    type="checkbox"
+                    name="term"
+                    id=""
+                    onChange={onchange}
+                  />
+                  <p className="text-[12px] ml-2">
+                    Accept all Terms and Conditions Checkbox
+                  </p>
                 </label>
               </div>
               <div className="form-control mt-6">
                 <button
                   type="submit"
-                  className="btn bg-brand font-bold hover:outline hover:outline-1 hover:outline-brand"
+                  className="btn bg-brand font-bold hover:outline hover:outline-2 hover:outline-brand"
                   disabled={disabled}
                   onClick={submitHandler}
                 >

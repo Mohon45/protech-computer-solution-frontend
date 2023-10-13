@@ -26,7 +26,7 @@ const MacbookRepair = () => {
         </div>
       </div>
       <div className="w-[50%]">
-        <Image src={mackBookRepairImage} />
+        <Image alt="image " src={mackBookRepairImage} />
       </div>
     </div>
   );

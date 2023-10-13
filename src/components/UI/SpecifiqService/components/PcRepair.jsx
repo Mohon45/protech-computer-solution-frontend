@@ -29,7 +29,11 @@ const PcRepair = () => {
         </div>
       </div>
       <div className="w-[50%]">
-        <Image src={pcRepairImage} className="w-[70%] h-[300px] mx-auto" />
+        <Image
+          alt="image "
+          src={pcRepairImage}
+          className="w-[70%] h-[300px] mx-auto"
+        />
       </div>
     </div>
   );

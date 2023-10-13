@@ -5,7 +5,11 @@ const HomeNews = () => {
   return (
     <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 pb-10">
       <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image src={NewsImage} className="rounded-tl-md rounded-tr-md" />
+        <Image
+          alt="image "
+          src={NewsImage}
+          className="rounded-tl-md rounded-tr-md"
+        />
         <div className="p-3">
           <h1 className="text-lg font-semibold">
             How To Back Up An Android Just In Case
@@ -19,7 +23,11 @@ const HomeNews = () => {
         </div>
       </div>
       <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image src={NewsImage} className="rounded-tl-md rounded-tr-md" />
+        <Image
+          alt="image "
+          src={NewsImage}
+          className="rounded-tl-md rounded-tr-md"
+        />
         <div className="p-3">
           <h1 className="text-lg font-semibold">
             How To Back Up An Android Just In Case
@@ -33,7 +41,11 @@ const HomeNews = () => {
         </div>
       </div>
       <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image src={NewsImage} className="rounded-tl-md rounded-tr-md" />
+        <Image
+          alt="image "
+          src={NewsImage}
+          className="rounded-tl-md rounded-tr-md"
+        />
         <div className="p-3">
           <h1 className="text-lg font-semibold">
             How To Back Up An Android Just In Case

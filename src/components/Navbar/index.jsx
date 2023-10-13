@@ -3,12 +3,35 @@ import Image from "next/image";
 import Link from "next/link";
 import NavLogo from "../../assets/pro-tech1.png";
 import { Icon } from "@iconify/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Cookies from "universal-cookie";
+import { useGetLoginUserQuery, useLogoutMutation } from "@/redux/api/authApi";
+import { useEffect, useState } from "react";
+import { setUser } from "@/redux/features/users/userSlice";
+import { Modal } from "../UIComponets/Modal";
+const cookies = new Cookies();
 
 const NavbarPage = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [logout, logoutResult] = useLogoutMutation();
+  const { data } = useGetLoginUserQuery();
   const router = useRouter();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  useEffect(() => {
+    dispatch(setUser(data?.data));
+  }, [data?.data]);
+
+  const logOutHandler = async () => {
+    try {
+      await logout();
+      dispatch(setUser(null));
+      setShowModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="bg-gradient-to-r  from-gradient-green  to-gradient-blue shadow-lg fixed top-0 left-0 right-0 z-[999] ">
       <div className="navbar w-[90%] mx-auto py-5">
@@ -54,7 +77,7 @@ const NavbarPage = () => {
             </ul>
           </div>
           <Link href="/" className=" text-xl">
-            <Image src={NavLogo} className="w-[150px] h-[50px]" />
+            <Image alt="image " src={NavLogo} className="w-[150px] h-[50px]" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -135,7 +158,7 @@ const NavbarPage = () => {
                       Profile
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => setShowModal(true)}>
                     <a>Logout</a>
                   </li>
                 </ul>
@@ -153,6 +176,34 @@ const NavbarPage = () => {
           )}
         </div>
       </div>
+      {showModal && (
+        <Modal
+          title="Log out"
+          width="w-[40%]"
+          setModal={setShowModal}
+          body={
+            <div>
+              <h1 className="text-xl font-bold text-center">
+                Are you sure to log out
+              </h1>
+              <div className="w-[200px] mx-auto my-5">
+                <button
+                  className="bg-brand px-3 rounded text-white"
+                  onClick={logOutHandler}
+                >
+                  Yes
+                </button>
+                <button
+                  className="bg-brand px-3 rounded text-white ml-4"
+                  onClick={() => setShowModal(false)}
+                >
+                  Exit
+                </button>
+              </div>
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };

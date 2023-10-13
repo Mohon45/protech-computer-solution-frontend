@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const formikRef = useRef();
   const fileInputRef = useRef(null);
   const user = useSelector((state) => state.user.user);
-  if (user) {
+  if (!user) {
     router.push("/login");
   }
 
@@ -80,6 +80,7 @@ const ProfilePage = () => {
         <div className="my-5 md:w-[80%] mx-auto flex flex-col md:flex-row items-center">
           <div className="w-[30%]">
             <Image
+              alt="image "
               src={uploadImageUrl ? uploadImageUrl : avatar}
               width={100}
               height={100}

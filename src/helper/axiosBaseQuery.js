@@ -4,7 +4,7 @@ const axiosBaseQuery =
   async ({ url, method, data, params, headers }) => {
     try {
       const result = await axios({
-        url: baseUrl + url,
+        url: `/api/v1${url}`,
         method,
         data,
         params,
@@ -23,3 +23,19 @@ const axiosBaseQuery =
   };
 
 export default axiosBaseQuery;
+
+// var headers = new Headers();
+// headers.append('Content-Type', 'application/json');
+// headers.append('Accept', 'application/json');
+
+// return fetch('/your/server_endpoint', {
+//     method: 'POST',
+//     mode: 'same-origin',
+//     redirect: 'follow',
+//     credentials: 'include', // Don't forget to specify this if you need cookies
+//     headers: headers,
+//     body: JSON.stringify({
+//         first_name: 'John',
+//         last_name: 'Doe'
+//     })
+// })

@@ -7,7 +7,9 @@ import Link from "next/link";
 import { useLoginMutation } from "@/redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/features/users/userSlice";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -16,8 +18,8 @@ const LoginPage = () => {
   const [disabled, setDisabled] = useState(false);
   const [login, loginResultresult] = useLoginMutation();
 
+  const router = useRouter();
   const dispatch = useDispatch();
-
   const onchange = (e) => {
     setDisabled(true);
 
@@ -43,8 +45,14 @@ const LoginPage = () => {
       };
       const result = await login(newData);
       if (result.data?.data) {
+        let userData = result.data?.data;
+        cookies.set("name", userData.name, {
+          path: "/",
+        });
+        cookies.set("userId", userData._id, { path: "/" });
+        cookies.set("role", userData.role, { path: "/" });
         dispatch(setUser(result.data?.data));
-        redirect("/");
+        router.push("/");
         setLoading(false);
       }
     } catch (error) {
@@ -58,7 +66,7 @@ const LoginPage = () => {
       <div className="hero py-5 bg-base-200">
         <div className="md:flex justify-evenly items-center">
           <div className="w-[50%]  text-center lg:text-left hidden md:block">
-            <Image src={loginImage} className="w-[70%] mx-auto" />
+            <Image alt="image " src={loginImage} className="w-[70%] mx-auto" />
           </div>
           <div className="md:w-[50%] mx-auto h-[400px] card flex-shrink-0 max-w-sm shadow-2xl bg-base-100">
             <form className="card-body">

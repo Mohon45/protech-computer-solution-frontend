@@ -23,7 +23,7 @@ const MotherboardRepair = () => {
         </div>
       </div>
       <div className="w-[50%]">
-        <Image src={motherboardRepairImage} />
+        <Image alt="image " src={motherboardRepairImage} />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const FooterPage = () => {
     <div className="bg-gradient-to-l to-gradient-blue from-gradient-green   shadow-lg">
       <footer className="footer p-10 text-base-content">
         <aside>
-          <Image src={logo} className="w-[150px]" />
+          <Image alt="image " src={logo} className="w-[150px]" />
           <p>
             ProTech Computer Solutions
             <br />
