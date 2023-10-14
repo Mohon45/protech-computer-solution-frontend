@@ -23,6 +23,13 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
+    userProfileUpdate: build.mutation({
+      query: (data) => ({
+        url: `/user/profile-update/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+    }),
     getLoginUser: build.query({
       query: () => ({
         url: "/user/getLoggedInUser",
@@ -36,5 +43,6 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useLogoutMutation,
+  useUserProfileUpdateMutation,
   useGetLoginUserQuery,
 } = authApi;

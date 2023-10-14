@@ -5,12 +5,10 @@ import NavLogo from "../../assets/pro-tech1.png";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import Cookies from "universal-cookie";
 import { useGetLoginUserQuery, useLogoutMutation } from "@/redux/api/authApi";
 import { useEffect, useState } from "react";
 import { setUser } from "@/redux/features/users/userSlice";
 import { Modal } from "../UIComponets/Modal";
-const cookies = new Cookies();
 
 const NavbarPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -92,7 +90,7 @@ const NavbarPage = () => {
             </li>
             <li>
               <Link
-                href="/"
+                href="/services/repair_service"
                 className="text-lg font-semibold hover:bg-transparent hover:text-brand"
               >
                 Repair Services
@@ -100,7 +98,7 @@ const NavbarPage = () => {
             </li>
             <li>
               <Link
-                href="/"
+                href="/services/software_service"
                 className="text-lg font-semibold hover:bg-transparent hover:text-brand"
               >
                 Software Services
@@ -108,7 +106,7 @@ const NavbarPage = () => {
             </li>
             <li>
               <Link
-                href="/"
+                href="/services/allservice"
                 className="text-lg font-semibold hover:bg-transparent hover:text-brand"
               >
                 Other Services

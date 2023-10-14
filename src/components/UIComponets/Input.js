@@ -17,7 +17,7 @@ const Input = ({ label, name, type, placeholder, disabled }) => {
           className="bg-input px-2 text-[14px] py-2 rounded-[6px] outline-none active:border-[1px] focus:border-[1px] border-brand w-[100%]"
           name={name}
           placeholderText={placeholder}
-          disabled={disabled}
+          readOnly={disabled}
           selected={(field.value && new Date(field.value)) || null}
           peekNextMonth
           showMonthDropdown
@@ -44,6 +44,7 @@ const Input = ({ label, name, type, placeholder, disabled }) => {
           name={name}
           placeholder={placeholder}
           className="bg-input px-2 text-[14px] py-2 rounded-[6px] outline-none active:border-[1px] focus:border-[1px] border-brand"
+          readOnly={disabled}
         />
         <div className="text-red text-[13px] my-[2px]">
           <ErrorMessage name={name} />

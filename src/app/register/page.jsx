@@ -13,7 +13,7 @@ const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
-  const [term, setTerm] = useState(false);
+
   const [signUp, signUpresult] = useSignUpMutation();
 
   const router = useRouter();
@@ -104,7 +104,6 @@ const page = () => {
                   name="password"
                   className="input outline outline-1 outline-brand focus:outline-brand"
                   onChange={onchange}
-                  required
                 />
                 <label className="label">
                   <input

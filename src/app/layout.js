@@ -3,6 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import FooterPage from "@/components/Footer";
 import Providers from "@/lib/Providers";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +24,18 @@ export default function RootLayout({ children }) {
           </div>
           {children}
           <FooterPage />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </body>
       </html>
     </Providers>

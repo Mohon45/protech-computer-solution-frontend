@@ -1,1 +1,1 @@
-export const tagTypesList = ["User"];
+export const tagTypesList = ["User", "Services"];
