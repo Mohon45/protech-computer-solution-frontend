@@ -25,7 +25,7 @@ const Input = ({ label, name, type, placeholder, disabled }) => {
           dropdownMode="select"
           onChange={(val) => {
             setDate(val);
-            setFieldValue(name, val);
+            setFieldValue(name, val?.toISOString()?.split("T")[0]);
           }}
         />
         <div className="text-red text-[13px] my-[2px]">

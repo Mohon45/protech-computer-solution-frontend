@@ -17,7 +17,17 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getServiceDetails: build.query({
+      query: (id) => ({
+        url: `/service/details/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateServiceMutation, useGetServicesQuery } = serviceApi;
+export const {
+  useCreateServiceMutation,
+  useGetServicesQuery,
+  useGetServiceDetailsQuery,
+} = serviceApi;

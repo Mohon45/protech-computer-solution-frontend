@@ -9,17 +9,29 @@ import { useGetLoginUserQuery, useLogoutMutation } from "@/redux/api/authApi";
 import { useEffect, useState } from "react";
 import { setUser } from "@/redux/features/users/userSlice";
 import { Modal } from "../UIComponets/Modal";
+import { useGetUserCartItemQuery } from "@/redux/api/cartApi";
+import { rtkoptions } from "@/utils/rtkOption";
 
 const NavbarPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [cartItems, setCartItems] = useState(0);
   const [logout, logoutResult] = useLogoutMutation();
   const { data } = useGetLoginUserQuery();
+  const { data: cartData } = useGetUserCartItemQuery(rtkoptions);
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
   useEffect(() => {
     dispatch(setUser(data?.data));
   }, [data?.data]);
+  console.log(cartData);
+  useEffect(() => {
+    if (cartData?.data) {
+      console.log(cartData?.data);
+      setCartItems(cartData?.data?.cartItem?.length);
+    }
+  }, [cartData?.data]);
 
   const logOutHandler = async () => {
     try {
@@ -133,7 +145,9 @@ const NavbarPage = () => {
                 >
                   <div className="indicator">
                     <Icon icon="mdi:cart-outline" color="#04D98C" width={30} />
-                    <span className="badge badge-sm indicator-item">0</span>
+                    <span className="badge badge-sm indicator-item">
+                      {cartItems}
+                    </span>
                   </div>
                 </label>
               </div>
