@@ -16,8 +16,22 @@ export const cartApi = baseApi.injectEndpoints({
         url: "/cart",
         method: "GET",
       }),
+      pollingInterval: 3000,
+    }),
+
+    removeCartItem: build.mutation({
+      query: (data) => ({
+        url: "/cart/remove",
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: ["Carts"],
     }),
   }),
 });
 
-export const { useAddNewCartItemMutation, useGetUserCartItemQuery } = cartApi;
+export const {
+  useAddNewCartItemMutation,
+  useGetUserCartItemQuery,
+  useRemoveCartItemMutation,
+} = cartApi;

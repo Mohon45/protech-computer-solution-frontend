@@ -11,13 +11,16 @@ import { setUser } from "@/redux/features/users/userSlice";
 import { Modal } from "../UIComponets/Modal";
 import { useGetUserCartItemQuery } from "@/redux/api/cartApi";
 import { rtkoptions } from "@/utils/rtkOption";
+import { setCartItem } from "@/redux/features/cart/cartSlice";
 
 const NavbarPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [cartItems, setCartItems] = useState(0);
   const [logout, logoutResult] = useLogoutMutation();
   const { data } = useGetLoginUserQuery();
-  const { data: cartData } = useGetUserCartItemQuery(rtkoptions);
+  const { data: cartData } = useGetUserCartItemQuery({
+    pollingInterval: 3000,
+  });
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -25,10 +28,10 @@ const NavbarPage = () => {
   useEffect(() => {
     dispatch(setUser(data?.data));
   }, [data?.data]);
-  console.log(cartData);
+
   useEffect(() => {
     if (cartData?.data) {
-      console.log(cartData?.data);
+      dispatch(setCartItem(cartData?.data?.cartItem));
       setCartItems(cartData?.data?.cartItem?.length);
     }
   }, [cartData?.data]);
@@ -42,6 +45,7 @@ const NavbarPage = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="bg-gradient-to-r  from-gradient-green  to-gradient-blue shadow-lg fixed top-0 left-0 right-0 z-[999] ">
       <div className="navbar w-[90%] mx-auto py-5">
@@ -146,7 +150,7 @@ const NavbarPage = () => {
                   <div className="indicator">
                     <Icon icon="mdi:cart-outline" color="#04D98C" width={30} />
                     <span className="badge badge-sm indicator-item">
-                      {cartItems}
+                      {cartItems ?? 0}
                     </span>
                   </div>
                 </label>
@@ -168,6 +172,14 @@ const NavbarPage = () => {
                   <li>
                     <Link href="/profile" className="justify-between">
                       Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/user/bookingHistory"
+                      className="justify-between"
+                    >
+                      Dashboard
                     </Link>
                   </li>
                   <li onClick={() => setShowModal(true)}>

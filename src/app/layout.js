@@ -14,16 +14,19 @@ export const metadata = {
     "ProTech Computer Solutions is Computer Repair and It service provider",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, showFooter = true }) {
   return (
     <Providers>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${inter.className} flex flex-col min-h-screen`}>
           <div className="mb-24">
             <NavbarPage />
           </div>
-          {children}
-          <FooterPage />
+          <div className="flex-grow  bg-gradient-to-r from-gradient-green  to-gradient-blue ">
+            {children}
+          </div>
+          {/* {showFooter && <FooterPage />} */}
+
           <ToastContainer
             position="top-right"
             autoClose={5000}

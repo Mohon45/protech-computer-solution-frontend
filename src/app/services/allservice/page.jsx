@@ -76,10 +76,10 @@ const AllServicePage = () => {
         </div>
 
         <div className="w-[80%] px-2 py-5 overflow-y-scroll">
-          <div className=" pb-10 grid grid-cols-1 md:grid-cols-3 gap-y-10">
+          <div className=" pb-10 grid grid-cols-1 md:grid-cols-3 gap-10">
             {filteredItems?.map((item, index) => (
               <div
-                className="card w-96 mx-auto glass shadow-xl outline outline-1 outline-brand cursor-pointer"
+                className="card mx-auto glass shadow-xl outline outline-1 outline-brand cursor-pointer"
                 key={index}
               >
                 <figure>
@@ -88,7 +88,7 @@ const AllServicePage = () => {
                     alt="car!"
                     className="w-[100%] h-[300px] border"
                     width={100}
-                    height={200}
+                    height={150}
                   />
                 </figure>
                 <Link
