@@ -36,6 +36,18 @@ export const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllUser: build.query({
+      query: () => ({
+        url: "/user/all-user",
+        method: "GET",
+      }),
+    }),
+    deleteUser: build.mutation({
+      query: (id) => ({
+        url: `/user/delete/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -45,4 +57,6 @@ export const {
   useLogoutMutation,
   useUserProfileUpdateMutation,
   useGetLoginUserQuery,
+  useGetAllUserQuery,
+  useDeleteUserMutation,
 } = authApi;

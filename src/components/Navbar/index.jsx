@@ -169,19 +169,35 @@ const NavbarPage = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>
-                    <Link href="/profile" className="justify-between">
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/user/bookingHistory"
-                      className="justify-between"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
+                  {user?.role === "user" && (
+                    <li>
+                      <Link href="/profile" className="justify-between">
+                        Profile
+                      </Link>
+                    </li>
+                  )}
+                  {user?.role === "user" && (
+                    <li>
+                      <Link href="/profile" className="justify-between">
+                        <li>
+                          <Link
+                            href="/user/bookingHistory"
+                            className="justify-between"
+                          >
+                            User Dashboard
+                          </Link>
+                        </li>
+                      </Link>
+                    </li>
+                  )}
+                  {user?.role === "admin" && (
+                    <li>
+                      <Link href="/admin/profile" className="justify-between">
+                        Admin Dashboard
+                      </Link>
+                    </li>
+                  )}
+
                   <li onClick={() => setShowModal(true)}>
                     <a>Logout</a>
                   </li>
@@ -218,7 +234,7 @@ const NavbarPage = () => {
                   Yes
                 </button>
                 <button
-                  className="bg-brand px-3 rounded text-white ml-4"
+                  className="bg-red px-3 rounded text-white ml-4"
                   onClick={() => setShowModal(false)}
                 >
                   Exit

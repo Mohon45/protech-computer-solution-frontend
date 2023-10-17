@@ -22,6 +22,8 @@ const CartPage = () => {
     if (data?.data) {
       setCartItems(data?.data?.cartItem);
       setLoading(false);
+    } else {
+      setLoading(false);
     }
   }, [data?.data]);
 
