@@ -16,6 +16,11 @@ import {
   useSignUpMutation,
   useUserProfileUpdateMutation,
 } from "@/redux/api/authApi";
+import {
+  useCreateServiceMutation,
+  useUpdateServiceMutation,
+} from "@/redux/api/serviceApi";
+import Select from "@/components/UIComponets/Select";
 
 const Flex = ({ children }) => {
   return (
@@ -23,26 +28,29 @@ const Flex = ({ children }) => {
   );
 };
 
-const UserBody = (props) => {
+const ServiceBody = (props) => {
   const [initialVals, setInitialVals] = useState(InitialValues);
   const [uploadImageUrl, setUploadImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [signUp, signUpResult] = useSignUpMutation();
-  const [userProfileUpdate, updateResult] = useUserProfileUpdateMutation();
+  const [createService, createServiceResult] = useCreateServiceMutation();
+  const [updateService, updateServiceResult] = useUpdateServiceMutation();
   const formikRef = useRef();
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (props.viewOrEdit === "edit") {
+      console.log(props?.selectedService[0]);
       const tempInitialVals = {
-        name: props?.selectedUser[0]?.name,
-        email: props?.selectedUser[0]?.email,
-        password: props?.selectedUser[0]?.password,
-        phone: props?.selectedUser[0]?.phone,
-        address: props?.selectedUser[0]?.address,
-        image: props?.selectedUser[0]?.image,
+        title: props?.selectedService[0]?.title,
+        category: props?.selectedService[0]?.category,
+        image: props?.selectedService[0]?.image,
+        location: props?.selectedService[0]?.location,
+        minPrice: props?.selectedService[0]?.minPrice,
+        maxPrice: props?.selectedService[0]?.maxPrice,
+        description: props?.selectedService[0]?.description,
       };
+      setUploadImageUrl(props?.selectedService[0]?.image);
       setInitialVals(tempInitialVals);
     }
   }, [props.viewOrEdit]);
@@ -51,25 +59,28 @@ const UserBody = (props) => {
     setLoading(true);
     setSubmitting(true);
     try {
+      if (uploadImageUrl) {
+        values.image = uploadImageUrl;
+      }
       if (props.viewOrEdit === "edit") {
         const data = {
-          id: props.selectedUser[0]?._id,
+          id: props.selectedService[0]?._id,
           body: values,
         };
-        const result = await userProfileUpdate(data);
+        const result = await updateService(data);
         if (result.data?.data) {
-          toast.success("User Update Success!");
+          toast.success("Service Update Success!");
           setSubmitting(false);
           setLoading(true);
-          props?.setShowUserModal(false);
+          props?.setShowServiceModal(false);
         }
       } else {
-        const result = await signUp(values);
+        const result = await createService(values);
         if (result.data?.data) {
-          toast.success("New User Created Success");
+          toast.success("New Service Created Success");
           setSubmitting(false);
           setLoading(false);
-          props?.setShowUserModal(false);
+          props?.setShowServiceModal(false);
         }
       }
     } catch (error) {
@@ -120,7 +131,7 @@ const UserBody = (props) => {
   };
 
   return (
-    <div className="bg-[#E4F2EB] px-5 pb-5">
+    <div className="bg-[#E4F2EB] px-5 pb-5 overflow-y-scroll">
       {loading && <Loader forProcess={true} />}
       <Formik
         initialValues={initialVals}
@@ -131,72 +142,77 @@ const UserBody = (props) => {
       >
         {({ isSubmitting, values }) => (
           <Form>
-            {props.viewOrEdit === "edit" && (
-              <div className="w-[30%] mx-auto mb-2">
-                <Image
-                  alt="image "
-                  src={
-                    uploadImageUrl
-                      ? uploadImageUrl
-                      : props?.selectedUser[0]?.image
-                      ? props?.selectedUser[0]?.image
-                      : avatar
-                  }
-                  width={100}
-                  height={100}
-                  className="w-[100px] h-[100px] rounded-full mx-auto"
+            <div className="w-[30%] mx-auto mb-2 mt-3">
+              <Image
+                alt="image "
+                src={
+                  uploadImageUrl !== ""
+                    ? uploadImageUrl
+                    : props?.selectedService[0]?.image
+                    ? props?.selectedService[0]?.image
+                    : avatar
+                }
+                width={100}
+                height={100}
+                className="w-[100px] h-[100px] rounded-full mx-auto"
+              />
+              <div className=" flex">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="w-[30px] mx-auto hidden"
+                  onChange={imageUploadHandler}
                 />
-                <div className=" flex">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    className="w-[30px] mx-auto hidden"
-                    onChange={imageUploadHandler}
-                  />
-                  <Icon
-                    icon="ep:upload-filled"
-                    width={30}
-                    className="mx-auto cursor-pointer "
-                    onClick={() => handleImageUpload()}
-                  />
-                </div>
+                <Icon
+                  icon="ep:upload-filled"
+                  width={30}
+                  className="mx-auto cursor-pointer "
+                  onClick={() => handleImageUpload()}
+                />
               </div>
-            )}
+            </div>
 
             <Flex>
-              <Input label="Name" name="name" type="text" placeholder="name" />
               <Input
-                label="Email"
-                name="email"
+                label="Service Name"
+                name="title"
                 type="text"
-                placeholder="email"
+                placeholder="service name"
               />
-            </Flex>
-            <Flex>
-              {props.viewOrEdit !== "edit" ? (
-                <Input
-                  label="Password"
-                  name="password"
-                  type="password"
-                  placeholder="user password"
-                />
-              ) : (
-                <div></div>
-              )}
-
-              <Input
-                label="Phone Number"
-                name="phone"
-                type="text"
-                placeholder="phone number"
-              />
+              <Select label="Category" name="category">
+                <option value="repair">Repair</option>
+                <option value="software">Software</option>
+                <option value="data_recovary">Data Recovery</option>
+                <option value="automation">Automation</option>
+                <option value="others">Others</option>
+              </Select>
             </Flex>
             <Flex>
               <Input
-                label="Address"
-                name="address"
+                label="Location"
+                name="location"
                 type="text"
-                placeholder="address"
+                placeholder="location"
+              />
+              <Input
+                label="Min Price"
+                name="minPrice"
+                type="number"
+                placeholder="min price Range"
+              />
+            </Flex>
+            <Flex>
+              <Input
+                label="Max Price"
+                name="maxPrice"
+                type="number"
+                placeholder="max price Range"
+              />
+              <Input
+                label="Desccription"
+                name="description"
+                type="text"
+                placeholder="service description"
               />
             </Flex>
             <div className="flex">
@@ -218,19 +234,21 @@ const UserBody = (props) => {
   );
 };
 
-const UserModal = (props) => {
+const ServiceModal = (props) => {
   return (
     <div>
-      {props.showUserModal && (
+      {props.showServiceModal && (
         <Modal
           title={`${
-            props.viewOrEdit === "edit" ? `Update a User` : `Create a New User`
+            props.viewOrEdit === "edit"
+              ? `Update a Service`
+              : `Create a New Service`
           }`}
           subtitle={`Please enter the following information to ${
-            props.viewOrEdit === "edit" ? `update user` : `create user`
+            props.viewOrEdit === "edit" ? `update service` : `create service`
           }`}
-          setModal={props?.setShowUserModal}
-          body={<UserBody {...props} />}
+          setModal={props?.setShowServiceModal}
+          body={<ServiceBody {...props} />}
         />
       )}
       <h1>MOda</h1>
@@ -238,4 +256,4 @@ const UserModal = (props) => {
   );
 };
 
-export default UserModal;
+export default ServiceModal;

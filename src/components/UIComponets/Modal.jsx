@@ -12,7 +12,7 @@ export const Modal = ({ title, subtitle, setModal, width, body }) => {
   return (
     <div className={styles.modalWrapper}>
       <div
-        className={`bg-white max-h-[700px] overflow-y-auto relative px-4 pt-5 rounded-md ${
+        className={`bg-white max-h-[500px] overflow-y-auto relative px-4 pt-5 rounded-md ${
           width ? width : "w-[50%]"
         }`}
       >

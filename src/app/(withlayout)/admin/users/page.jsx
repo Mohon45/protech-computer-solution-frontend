@@ -16,6 +16,7 @@ const ManageUsersPage = () => {
   const [showUserModal, setShowUserModal] = useState(false);
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedUser, setSelectedUser] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data } = useGetAllUserQuery(rtkoptions);
 
@@ -72,6 +73,14 @@ const ManageUsersPage = () => {
     }
   };
 
+  const filteredItems = allUsers?.filter((item) => {
+    const isNameMatch =
+      !searchTerm ||
+      item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return isNameMatch;
+  });
+
   return (
     <div className="py-10 px-8">
       {loading && <Loader forProcess={true} />}
@@ -97,8 +106,8 @@ const ManageUsersPage = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="search a user"
-              //   onChange={handleSearchChange}
+              placeholder="search a user by name"
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-[100%] px-2 py-2 rounded-md focus:outline focus:outline-2 focus:outline-brand pr-10"
             />
             <Icon
@@ -111,7 +120,7 @@ const ManageUsersPage = () => {
         </div>
         <Table
           headers={headers}
-          data={allUsers ?? []}
+          data={filteredItems ?? []}
           showActions={{
             edit: true,
             delete: true,

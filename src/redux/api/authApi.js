@@ -29,24 +29,28 @@ export const authApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: data.body,
       }),
+      invalidatesTags: ["User"],
     }),
     getLoginUser: build.query({
       query: () => ({
         url: "/user/getLoggedInUser",
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
     getAllUser: build.query({
       query: () => ({
         url: "/user/all-user",
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
     deleteUser: build.mutation({
       query: (id) => ({
         url: `/user/delete/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
