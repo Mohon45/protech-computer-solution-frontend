@@ -10,10 +10,10 @@ import { Icon } from "@iconify/react";
 import Loader from "@/components/Loader";
 import { toast } from "react-toastify";
 import {
-  useCreateBlogMutation,
-  useUpdateBlogMutation,
-} from "@/redux/api/blogApi";
-import FileInput from "@/components/UIComponets/FileInput";
+  useSignUpMutation,
+  useUserProfileUpdateMutation,
+} from "@/redux/api/authApi";
+import Select from "@/components/UIComponets/Select";
 
 const Flex = ({ children }) => {
   return (
@@ -21,26 +21,17 @@ const Flex = ({ children }) => {
   );
 };
 
-const BlogBody = (props) => {
+const FaqBody = (props) => {
   const [initialVals, setInitialVals] = useState(InitialValues);
   const [loading, setLoading] = useState(false);
 
-  const [createBlog, createBlogResult] = useCreateBlogMutation();
-  const [updateBlog, updateBlogResult] = useUpdateBlogMutation();
+  const [signUp, signUpResult] = useSignUpMutation();
+  const [userProfileUpdate, updateFaqResult] = useUserProfileUpdateMutation();
   const formikRef = useRef();
 
   useEffect(() => {
     if (props.viewOrEdit === "edit") {
-      console.log(props?.selectedBlog[0]);
-      const tempInitialVals = {
-        _id: props?.selectedBlog[0]?._id,
-        title: props?.selectedBlog[0]?.title,
-        image: props?.selectedBlog[0]?.image,
-        publishedDate: props?.selectedBlog[0]?.publishedDate,
-        views: props?.selectedBlog[0]?.views,
-        description: props?.selectedBlog[0]?.description,
-      };
-      setInitialVals(tempInitialVals);
+      setInitialVals(props?.selectedAdmin[0]);
     }
   }, [props.viewOrEdit]);
 
@@ -50,23 +41,23 @@ const BlogBody = (props) => {
     try {
       if (props.viewOrEdit === "edit") {
         const data = {
-          id: props.selectedBlog[0]?._id,
+          id: props.selectedAdmin[0]?._id,
           body: values,
         };
-        const result = await updateBlog(data);
+        const result = await userProfileUpdate(data);
         if (result.data?.data) {
-          toast.success("Blog Update Success!");
+          toast.success("Admin Update Success!");
           setSubmitting(false);
           setLoading(true);
-          props?.setShowBlogModal(false);
+          props?.setShowAdminModal(false);
         }
       } else {
-        const result = await createBlog(values);
+        const result = await signUp(values);
         if (result.data?.data) {
-          toast.success("New Blog Created Success");
+          toast.success("New Admin Created Success");
           setSubmitting(false);
           setLoading(false);
-          props?.setShowBlogModal(false);
+          props?.setShowAdminModal(false);
         }
       }
     } catch (error) {
@@ -88,23 +79,43 @@ const BlogBody = (props) => {
       >
         {({ isSubmitting, values }) => (
           <Form>
-            <Flex>
+            <Input
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="admin name"
+            />
+            <Input
+              label="Email"
+              name="email"
+              type="text"
+              placeholder="admin email"
+            />
+            <Input
+              label="Phone Number"
+              name="phone"
+              type="text"
+              placeholder="admin phone number"
+            />
+            <Select label="Role" name="role">
+              <option value="admin">Admin</option>
+              <option value="super_admin">Super Admin</option>
+            </Select>
+            {props.viewOrEdit !== "edit" && (
               <Input
-                label="Blog Title"
-                name="title"
-                type="text"
-                placeholder="blog title"
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="admin password"
               />
-              <FileInput label="Blog Image" name="image" />
-            </Flex>
-            <Flex>
-              <Input
-                label="Desccription"
-                name="description"
-                type="text"
-                placeholder="blog description"
-              />
-            </Flex>
+            )}
+
+            <Input
+              label="Adress"
+              name="address"
+              type="address"
+              placeholder="admin address"
+            />
 
             <div className="flex">
               <button
@@ -125,23 +136,25 @@ const BlogBody = (props) => {
   );
 };
 
-const BlogModal = (props) => {
+const AdminModal = (props) => {
   return (
     <div>
-      {props.showBlogModal && (
+      {props.showAdminModal && (
         <Modal
           title={`${
-            props.viewOrEdit === "edit" ? `Update a Blog` : `Create a New Blog`
+            props.viewOrEdit === "edit"
+              ? `Update a Admin`
+              : `Create a New Admin`
           }`}
           subtitle={`Please enter the following information to ${
-            props.viewOrEdit === "edit" ? `update blog` : `create blog`
+            props.viewOrEdit === "edit" ? `update user` : `create user`
           }`}
-          setModal={props?.setShowBlogModal}
-          body={<BlogBody {...props} />}
+          setModal={props?.setShowAdminModal}
+          body={<FaqBody {...props} />}
         />
       )}
     </div>
   );
 };
 
-export default BlogModal;
+export default AdminModal;

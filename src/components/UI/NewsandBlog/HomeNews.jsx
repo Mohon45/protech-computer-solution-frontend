@@ -1,7 +1,18 @@
 import Image from "next/image";
 import NewsImage from "../../../assets/news.jpg";
+import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
+import { rtkoptions } from "@/utils/rtkOption";
+import { useEffect, useState } from "react";
 
 const HomeNews = () => {
+  const [homeBlogs, setHomeBlogs] = useState([]);
+  const { data } = useGetAllBlogsQuery(rtkoptions);
+
+  useEffect(() => {
+    if (data?.data) {
+      console.log(data?.data);
+    }
+  }, [data?.data]);
   return (
     <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 pb-10">
       <div className="w-[70%] mx-auto shadow-xl rounded-md">

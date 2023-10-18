@@ -33,7 +33,7 @@ const MainSideBarPage = () => {
           </h1>
         ) : (
           <h1 className="my-5 text-center font-semibold text-xl">
-            Sub Admin Dashboard
+            Super Admin Dashboard
           </h1>
         )}
 
@@ -72,6 +72,47 @@ const MainSideBarPage = () => {
                   className="mr-2"
                 />
                 <h1>Feedback</h1>
+              </div>
+            </Link>
+          </div>
+        )}
+
+        {/* super admin sidebar */}
+        {user?.role === "super_admin" && (
+          <div className="mt-2">
+            <Link
+              href="/super-admin/profile"
+              className=" text-lg font-semibold"
+            >
+              <div
+                className={`${
+                  isActive === "superadminProfile" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("superadminProfile")}
+              >
+                <Icon icon="gg:profile" width={25} className="mr-2" />
+                <h1>Profile</h1>
+              </div>
+            </Link>
+
+            <Link
+              href="/super-admin/mange-admin"
+              className=" text-lg font-semibold"
+            >
+              <div
+                className={`${
+                  isActive === "mangeAdmin" &&
+                  `border-l-[4px] border-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("mangeAdmin")}
+              >
+                <Icon
+                  icon="eos-icons:admin-outlined"
+                  width={20}
+                  className="mr-2"
+                />
+                <h1>Mange Admin</h1>
               </div>
             </Link>
           </div>

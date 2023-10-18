@@ -32,7 +32,6 @@ const ServiceBody = (props) => {
 
   useEffect(() => {
     if (props.viewOrEdit === "edit") {
-      console.log(props?.selectedService[0]);
       const tempInitialVals = {
         title: props?.selectedService[0]?.title,
         category: props?.selectedService[0]?.category,
@@ -42,7 +41,6 @@ const ServiceBody = (props) => {
         maxPrice: props?.selectedService[0]?.maxPrice,
         description: props?.selectedService[0]?.description,
       };
-      setUploadImageUrl(props?.selectedService[0]?.image);
       setInitialVals(tempInitialVals);
     }
   }, [props.viewOrEdit]);

@@ -38,6 +38,13 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    getAllAdmins: build.query({
+      query: () => ({
+        url: "/supar-admin",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
     getAllUser: build.query({
       query: () => ({
         url: "/user/all-user",
@@ -61,6 +68,7 @@ export const {
   useLogoutMutation,
   useUserProfileUpdateMutation,
   useGetLoginUserQuery,
+  useGetAllAdminsQuery,
   useGetAllUserQuery,
   useDeleteUserMutation,
 } = authApi;

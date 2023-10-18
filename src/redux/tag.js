@@ -5,4 +5,6 @@ export const tagTypesList = [
   "Carts",
   "Feedbacks",
   "Blogs",
+  "Faqs",
+  "Admins",
 ];

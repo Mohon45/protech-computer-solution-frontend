@@ -7,53 +7,42 @@ import { rtkoptions } from "@/utils/rtkOption";
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  useDeleteBlogMutation,
-  useGetAllBlogsQuery,
-} from "@/redux/api/blogApi";
-import BlogModal from "./components/BlogModal";
+import AdminModal from "./components/AdminModal";
+import { useDeleteAdminMutation } from "@/redux/api/superAdminApi";
+import { useGetAllAdminsQuery } from "@/redux/api/authApi";
 
-const AdminBlogPage = () => {
-  const [allBlogs, setAllBlogs] = useState([]);
+const MangeAdminPage = () => {
+  const [allAdmins, setAllAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showBlogModal, setShowBlogModal] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
   const [viewOrEdit, setViewOrEdit] = useState("none");
-  const [selectedBlog, setSelectedBlog] = useState({});
+  const [selectedAdmin, setSelectedAdmin] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data } = useGetAllBlogsQuery(rtkoptions);
-  const [deleteBlog, deleteblogResult] = useDeleteBlogMutation();
+  const { data } = useGetAllAdminsQuery(rtkoptions);
+  const [deleteAdmin, deleteadminResult] = useDeleteAdminMutation();
 
   useEffect(() => {
     if (data?.data) {
-      const tempData = data?.data?.map((item, index) => {
-        return {
-          _id: item._id,
-          title: item?.title,
-          image: item?.image,
-          publishedDate: item?.publishedDate,
-          views: item?.views,
-          description: item?.description,
-        };
-      });
-      setAllBlogs(tempData);
+      setAllAdmins(data?.data);
       setLoading(false);
     }
   }, [data?.data]);
 
   const headers = [
-    { name: "Title", key: "title" },
-    { name: "Published Date", key: "publishedDate" },
-    { name: "Views", key: "views" },
+    { name: "Name", key: "name" },
+    { name: "Email", key: "email" },
+    { name: "Phone", key: "phone" },
+    { name: "Role", key: "role" },
   ];
 
   const handleActionClick = async (type, id) => {
-    const blog = allBlogs?.filter((item) => item._id === id);
+    const admins = allAdmins?.filter((item) => item._id === id);
     switch (type) {
       case "edit":
         setViewOrEdit(type);
-        setShowBlogModal(true);
-        setSelectedBlog(blog);
+        setSelectedAdmin(admins);
+        setShowAdminModal(true);
         break;
       case "view":
         break;
@@ -74,9 +63,9 @@ const AdminBlogPage = () => {
   const handleDelete = async (id) => {
     setLoading(true);
     try {
-      const result = await deleteBlog(id);
+      const result = await deleteAdmin(id);
       if (result?.data?.status === "success") {
-        toast.success("Blog deleted successfully");
+        toast.success("Admin deleted successfully");
         setLoading(false);
       }
     } catch (error) {
@@ -85,10 +74,10 @@ const AdminBlogPage = () => {
     }
   };
 
-  const filteredItems = allBlogs?.filter((item) => {
+  const filteredItems = allAdmins?.filter((item) => {
     const isNameMatch =
       !searchTerm ||
-      item?.title?.toLowerCase().includes(searchTerm.toLowerCase());
+      item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
 
     return isNameMatch;
   });
@@ -101,12 +90,12 @@ const AdminBlogPage = () => {
           <button
             onClick={() => {
               setViewOrEdit("none");
-              setShowBlogModal(true);
+              setShowAdminModal(true);
             }}
             className={styles.addButton}
           >
             <Icon icon="ic:baseline-plus" fontSize={24} color={"white"} />
-            Add New Blog
+            Add New Admin
           </button>
         </div>
         <div className="h-[2px] w-[100%] bg-brand"></div>
@@ -114,11 +103,11 @@ const AdminBlogPage = () => {
 
       <div className="shadow-xl px-2 py-3 rounded-md">
         <div className="flex justify-between items-center my-5">
-          <h1 className="text-xl font-semibold">Blog Table</h1>
+          <h1 className="text-xl font-semibold">Admins Table</h1>
           <div className="relative">
             <input
               type="text"
-              placeholder="search a service by name"
+              placeholder="search a admin by name"
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-[100%] px-2 py-2 rounded-md focus:outline focus:outline-2 focus:outline-brand pr-10"
             />
@@ -142,12 +131,12 @@ const AdminBlogPage = () => {
           handleActionClick={handleActionClick}
         />
 
-        {showBlogModal && (
-          <BlogModal
-            showBlogModal={showBlogModal}
-            setShowBlogModal={setShowBlogModal}
+        {showAdminModal && (
+          <AdminModal
+            showAdminModal={showAdminModal}
+            setShowAdminModal={setShowAdminModal}
             viewOrEdit={viewOrEdit}
-            selectedBlog={selectedBlog}
+            selectedAdmin={selectedAdmin}
           />
         )}
       </div>
@@ -165,4 +154,4 @@ const styles = {
     "text-[14px] rounded-md my-0 outline-none font-regular py-2 pl-[35px] bg-gray bg-opacity-10",
 };
 
-export default AdminBlogPage;
+export default MangeAdminPage;

@@ -25,7 +25,7 @@ export default function RootLayout({ children, showFooter = true }) {
           <div className="flex-grow  bg-gradient-to-r from-gradient-green  to-gradient-blue ">
             {children}
           </div>
-          {/* {showFooter && <FooterPage />} */}
+          {showFooter && <FooterPage />}
 
           <ToastContainer
             position="top-right"

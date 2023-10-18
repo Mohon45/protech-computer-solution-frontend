@@ -203,6 +203,16 @@ const NavbarPage = () => {
                       </Link>
                     </li>
                   )}
+                  {user?.role === "super_admin" && (
+                    <li>
+                      <Link
+                        href="/super-admin/profile"
+                        className="justify-between"
+                      >
+                        Supar Admin Dashboard
+                      </Link>
+                    </li>
+                  )}
 
                   <li onClick={() => setShowModal(true)}>
                     <a>Logout</a>

@@ -18,8 +18,19 @@ export const feedBackApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Feedbacks"],
     }),
+
+    deleteFeedback: build.mutation({
+      query: (id) => ({
+        url: `/feedback/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Feedbacks"],
+    }),
   }),
 });
 
-export const { useSubmitFeedbackMutation, useGetAllFeedbacksQuery } =
-  feedBackApi;
+export const {
+  useSubmitFeedbackMutation,
+  useGetAllFeedbacksQuery,
+  useDeleteFeedbackMutation,
+} = feedBackApi;
