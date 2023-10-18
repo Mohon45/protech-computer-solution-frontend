@@ -54,12 +54,12 @@ const AdminServicePage = () => {
   ];
 
   const handleActionClick = async (type, id) => {
-    const user = allServices?.filter((item) => item._id === id);
+    const service = allServices?.filter((item) => item._id === id);
     switch (type) {
       case "edit":
         setViewOrEdit(type);
         setShowServiceModal(true);
-        setSelectedService(user);
+        setSelectedService(service);
         break;
       case "view":
         break;
@@ -87,7 +87,7 @@ const AdminServicePage = () => {
       }
     } catch (error) {
       console.error(error);
-      setLoading;
+      setLoading(false);
     }
   };
 

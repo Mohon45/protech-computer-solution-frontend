@@ -53,9 +53,9 @@ const Table = ({
         <table className="table-auto w-[100%]">
           <thead>
             <tr className="w-[100%] text-left bg-brand font-semibold">
-              <th className="py-2 px-2">SI</th>
+              <th className="py-3 px-2">SI</th>
               {headers?.map((x, index) => (
-                <th key={index} className=" py-2 px-2">
+                <th key={index} className="py-3 px-2">
                   <div className="flex items-center gap-1">{x?.name}</div>
                 </th>
               ))}
@@ -86,7 +86,7 @@ const Table = ({
                         <Icon
                           onClick={() => handleActionClick("view", item._id)}
                           icon="basil:eye-solid"
-                          className="text-[30px] hover:scale-105 duration-75 text-gray hover:text-[#367BF5] mr-2"
+                          className="text-[30px] hover:scale-105 duration-75 text-gray hover:text-brand mr-2 cursor-pointer"
                         />
                       </div>
                     )}

@@ -4,4 +4,5 @@ export const tagTypesList = [
   "Bookings",
   "Carts",
   "Feedbacks",
+  "Blogs",
 ];

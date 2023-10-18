@@ -16,6 +16,7 @@ export const feedBackApi = baseApi.injectEndpoints({
         url: "/feedback",
         method: "GET",
       }),
+      providesTags: ["Feedbacks"],
     }),
   }),
 });

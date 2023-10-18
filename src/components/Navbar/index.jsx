@@ -141,20 +141,26 @@ const NavbarPage = () => {
         <div className="navbar-end ">
           {user ? (
             <>
-              <div className="dropdown dropdown-end">
-                <label
-                  tabIndex={0}
-                  className="btn btn-ghost btn-circle"
-                  onClick={() => router.push("/cart")}
-                >
-                  <div className="indicator">
-                    <Icon icon="mdi:cart-outline" color="#04D98C" width={30} />
-                    <span className="badge badge-sm indicator-item">
-                      {cartItems ?? 0}
-                    </span>
-                  </div>
-                </label>
-              </div>
+              {user?.role === "user" && (
+                <div className="dropdown dropdown-end">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-circle"
+                    onClick={() => router.push("/cart")}
+                  >
+                    <div className="indicator">
+                      <Icon
+                        icon="mdi:cart-outline"
+                        color="#04D98C"
+                        width={30}
+                      />
+                      <span className="badge badge-sm indicator-item">
+                        {cartItems ?? 0}
+                      </span>
+                    </div>
+                  </label>
+                </div>
+              )}
 
               <div className="dropdown dropdown-end ml-3">
                 <label

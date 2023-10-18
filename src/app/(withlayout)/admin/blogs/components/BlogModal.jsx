@@ -10,10 +10,9 @@ import { Icon } from "@iconify/react";
 import Loader from "@/components/Loader";
 import { toast } from "react-toastify";
 import {
-  useCreateServiceMutation,
-  useUpdateServiceMutation,
-} from "@/redux/api/serviceApi";
-import Select from "@/components/UIComponets/Select";
+  useCreateBlogMutation,
+  useUpdateBlogMutation,
+} from "@/redux/api/blogApi";
 import FileInput from "@/components/UIComponets/FileInput";
 
 const Flex = ({ children }) => {
@@ -22,27 +21,24 @@ const Flex = ({ children }) => {
   );
 };
 
-const ServiceBody = (props) => {
+const BlogBody = (props) => {
   const [initialVals, setInitialVals] = useState(InitialValues);
   const [loading, setLoading] = useState(false);
 
-  const [createService, createServiceResult] = useCreateServiceMutation();
-  const [updateService, updateServiceResult] = useUpdateServiceMutation();
+  const [createBlog, createBlogResult] = useCreateBlogMutation();
+  const [updateBlog, updateBlogResult] = useUpdateBlogMutation();
   const formikRef = useRef();
 
   useEffect(() => {
     if (props.viewOrEdit === "edit") {
-      console.log(props?.selectedService[0]);
+      console.log(props?.selectedBlog[0]);
       const tempInitialVals = {
-        title: props?.selectedService[0]?.title,
-        category: props?.selectedService[0]?.category,
-        image: props?.selectedService[0]?.image,
-        location: props?.selectedService[0]?.location,
-        minPrice: props?.selectedService[0]?.minPrice,
-        maxPrice: props?.selectedService[0]?.maxPrice,
-        description: props?.selectedService[0]?.description,
+        _id: props?.selectedBlog[0]?._id,
+        title: props?.selectedBlog[0]?.title,
+        image: props?.selectedBlog[0]?.image,
+        publishedDate: props?.selectedBlog[0]?.publishedDate,
+        views: props?.selectedBlog[0]?.views,
       };
-      setUploadImageUrl(props?.selectedService[0]?.image);
       setInitialVals(tempInitialVals);
     }
   }, [props.viewOrEdit]);
@@ -53,20 +49,20 @@ const ServiceBody = (props) => {
     try {
       if (props.viewOrEdit === "edit") {
         const data = {
-          id: props.selectedService[0]?._id,
+          id: props.selectedBlog[0]?._id,
           body: values,
         };
-        const result = await updateService(data);
+        const result = await updateBlog(data);
         if (result.data?.data) {
-          toast.success("Service Update Success!");
+          toast.success("Blog Update Success!");
           setSubmitting(false);
           setLoading(true);
           props?.setShowServiceModal(false);
         }
       } else {
-        const result = await createService(values);
+        const result = await createBlog(values);
         if (result.data?.data) {
-          toast.success("New Service Created Success");
+          toast.success("New Blog Created Success");
           setSubmitting(false);
           setLoading(false);
           props?.setShowServiceModal(false);
@@ -93,50 +89,22 @@ const ServiceBody = (props) => {
           <Form>
             <Flex>
               <Input
-                label="Service Name"
+                label="Blog Title"
                 name="title"
                 type="text"
-                placeholder="service name"
+                placeholder="blog title"
               />
-              <FileInput label="Service Image" name="image" />
-            </Flex>
-            <Flex>
-              <Select label="Category" name="category">
-                <option value="repair">Repair</option>
-                <option value="software">Software</option>
-                <option value="data_recovary">Data Recovery</option>
-                <option value="automation">Automation</option>
-                <option value="others">Others</option>
-              </Select>
-              <Input
-                label="Location"
-                name="location"
-                type="text"
-                placeholder="location"
-              />
-            </Flex>
-            <Flex>
-              <Input
-                label="Min Price"
-                name="minPrice"
-                type="number"
-                placeholder="min price Range"
-              />
-              <Input
-                label="Max Price"
-                name="maxPrice"
-                type="number"
-                placeholder="max price Range"
-              />
+              <FileInput label="Blog Image" name="image" />
             </Flex>
             <Flex>
               <Input
                 label="Desccription"
                 name="description"
                 type="text"
-                placeholder="service description"
+                placeholder="blog description"
               />
             </Flex>
+
             <div className="flex">
               <button
                 type="submit"
@@ -156,25 +124,23 @@ const ServiceBody = (props) => {
   );
 };
 
-const ServiceModal = (props) => {
+const BlogModal = (props) => {
   return (
     <div>
-      {props.showServiceModal && (
+      {props.showBlogModal && (
         <Modal
           title={`${
-            props.viewOrEdit === "edit"
-              ? `Update a Service`
-              : `Create a New Service`
+            props.viewOrEdit === "edit" ? `Update a Blog` : `Create a New Blog`
           }`}
           subtitle={`Please enter the following information to ${
-            props.viewOrEdit === "edit" ? `update service` : `create service`
+            props.viewOrEdit === "edit" ? `update blog` : `create blog`
           }`}
-          setModal={props?.setShowServiceModal}
-          body={<ServiceBody {...props} />}
+          setModal={props?.setShowBlogModal}
+          body={<BlogBody {...props} />}
         />
       )}
     </div>
   );
 };
 
-export default ServiceModal;
+export default BlogModal;
