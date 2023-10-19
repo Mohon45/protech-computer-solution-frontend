@@ -17,6 +17,7 @@ const AdminFaqPage = () => {
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedFaq, setSelectedFaq] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data } = useGetAllFaqQuery(rtkoptions);
   const [deleteFaq, deletefaqResult] = useDeleteFaqMutation();
@@ -119,7 +120,7 @@ const AdminFaqPage = () => {
         </div>
         <Table
           headers={headers}
-          data={filteredItems ?? []}
+          data={filteredItems?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: true,
             delete: true,
@@ -127,6 +128,10 @@ const AdminFaqPage = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(filteredItems?.length / 10)}
         />
 
         {showFaqModal && (

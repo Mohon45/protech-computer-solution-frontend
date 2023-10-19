@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 const AdminUserFeedback = () => {
   const [allFeedbacks, setAllFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
   const { data } = useGetAllFeedbacksQuery(rtkoptions);
   const [deleteFeedback, deleteResult] = useDeleteFeedbackMutation();
 
@@ -98,7 +99,7 @@ const AdminUserFeedback = () => {
         </div>
         <Table
           headers={headers}
-          data={allFeedbacks ?? []}
+          data={allFeedbacks?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: false,
             delete: true,
@@ -106,6 +107,10 @@ const AdminUserFeedback = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(allFeedbacks?.length / 10)}
         />
       </div>
     </div>

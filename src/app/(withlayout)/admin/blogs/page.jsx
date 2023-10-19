@@ -20,6 +20,7 @@ const AdminBlogPage = () => {
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedBlog, setSelectedBlog] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data } = useGetAllBlogsQuery(rtkoptions);
   const [deleteBlog, deleteblogResult] = useDeleteBlogMutation();
@@ -132,7 +133,7 @@ const AdminBlogPage = () => {
         </div>
         <Table
           headers={headers}
-          data={filteredItems ?? []}
+          data={filteredItems?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: true,
             delete: true,
@@ -140,6 +141,10 @@ const AdminBlogPage = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(filteredItems?.length / 10)}
         />
 
         {showBlogModal && (

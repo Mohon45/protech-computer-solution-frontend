@@ -18,6 +18,7 @@ const MangeAdminPage = () => {
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedAdmin, setSelectedAdmin] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data } = useGetAllAdminsQuery(rtkoptions);
   const [deleteAdmin, deleteadminResult] = useDeleteAdminMutation();
@@ -121,7 +122,7 @@ const MangeAdminPage = () => {
         </div>
         <Table
           headers={headers}
-          data={filteredItems ?? []}
+          data={filteredItems?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: true,
             delete: true,
@@ -129,6 +130,10 @@ const MangeAdminPage = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(filteredItems?.length / 10)}
         />
 
         {showAdminModal && (

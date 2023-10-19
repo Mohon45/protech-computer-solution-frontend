@@ -119,111 +119,107 @@ const MainSideBarPage = () => {
         )}
 
         {/* admin sidebar */}
-        {user?.role === "admin" ||
-          (user?.role === "super_admin" && (
-            <div className="mt-2">
-              {user?.role === "admin" && (
-                <Link href="/admin/profile" className=" text-lg font-semibold">
-                  <div
-                    className={`${
-                      isActive === "adminProfile" &&
-                      `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                    } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                    onClick={() => setIsActive("adminProfile")}
-                  >
-                    <Icon icon="gg:profile" width={25} className="mr-2" />
-                    <h1>Profile</h1>
-                  </div>
-                </Link>
-              )}
+        {(user?.role === "admin" || user?.role === "super_admin") && (
+          <div className="mt-2">
+            {user?.role === "admin" && (
+              <Link href="/admin/profile" className=" text-lg font-semibold">
+                <div
+                  className={`${
+                    isActive === "adminProfile" &&
+                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                  onClick={() => setIsActive("adminProfile")}
+                >
+                  <Icon icon="gg:profile" width={25} className="mr-2" />
+                  <h1>Profile</h1>
+                </div>
+              </Link>
+            )}
 
-              <Link href="/admin/users" className=" text-lg font-semibold">
-                <div
-                  className={`${
-                    isActive === "users" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("users")}
-                >
-                  <Icon
-                    icon="majesticons:users-line"
-                    width={25}
-                    className="mr-2"
-                  />
-                  <h1>Users</h1>
-                </div>
-              </Link>
-
-              <Link href="/admin/services" className=" text-lg font-semibold">
-                <div
-                  className={`${
-                    isActive === "services" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("services")}
-                >
-                  <Icon icon="icons8:services" width={25} className="mr-2" />
-                  <h1>Services</h1>
-                </div>
-              </Link>
-              <Link href="/admin/booking" className=" text-lg font-semibold">
-                <div
-                  className={`${
-                    isActive === "booking" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("booking")}
-                >
-                  <Icon icon="bx:purchase-tag" width={25} className="mr-2" />
-                  <h1>Booking</h1>
-                </div>
-              </Link>
-              <Link href="/admin/blogs" className=" text-lg font-semibold">
-                <div
-                  className={`${
-                    isActive === "blogs" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("blogs")}
-                >
-                  <Icon icon="uil:blogger" width={25} className="mr-2" />
-                  <h1> Blogs</h1>
-                </div>
-              </Link>
-              <Link href="/admin/faq" className=" text-lg font-semibold">
-                <div
-                  className={`${
-                    isActive === "faq" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("faq")}
-                >
-                  <Icon icon="mdi:faq" width={25} className="mr-2" />
-                  <h1>FAQ</h1>
-                </div>
-              </Link>
-
-              <Link
-                href="/admin/userFeedback"
-                className=" text-lg font-semibold"
+            <Link href="/admin/users" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "users" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("users")}
               >
-                <div
-                  className={`${
-                    isActive === "userFeedback" &&
-                    `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
-                  } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
-                  onClick={() => setIsActive("userFeedback")}
-                >
-                  <Icon
-                    icon="fluent:person-feedback-48-regular"
-                    width={25}
-                    className="mr-2"
-                  />
-                  <h1> User Feedbacks</h1>
-                </div>
-              </Link>
-            </div>
-          ))}
+                <Icon
+                  icon="majesticons:users-line"
+                  width={25}
+                  className="mr-2"
+                />
+                <h1>Users</h1>
+              </div>
+            </Link>
+
+            <Link href="/admin/services" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "services" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("services")}
+              >
+                <Icon icon="icons8:services" width={25} className="mr-2" />
+                <h1>Services</h1>
+              </div>
+            </Link>
+            <Link href="/admin/booking" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "booking" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("booking")}
+              >
+                <Icon icon="bx:purchase-tag" width={25} className="mr-2" />
+                <h1>Booking</h1>
+              </div>
+            </Link>
+            <Link href="/admin/blogs" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "blogs" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("blogs")}
+              >
+                <Icon icon="uil:blogger" width={25} className="mr-2" />
+                <h1> Blogs</h1>
+              </div>
+            </Link>
+            <Link href="/admin/faq" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "faq" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("faq")}
+              >
+                <Icon icon="mdi:faq" width={25} className="mr-2" />
+                <h1>FAQ</h1>
+              </div>
+            </Link>
+
+            <Link href="/admin/userFeedback" className=" text-lg font-semibold">
+              <div
+                className={`${
+                  isActive === "userFeedback" &&
+                  `border-l-[4px] border-brand text-brand bg-brand bg-opacity-20`
+                } mb-2  flex px-6 items-center cursor-pointer py-2 hover:bg-brand hover:bg-opacity-20`}
+                onClick={() => setIsActive("userFeedback")}
+              >
+                <Icon
+                  icon="fluent:person-feedback-48-regular"
+                  width={25}
+                  className="mr-2"
+                />
+                <h1> User Feedbacks</h1>
+              </div>
+            </Link>
+          </div>
+        )}
       </aside>
     </div>
   );

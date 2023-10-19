@@ -20,6 +20,7 @@ const AdminBookingPage = () => {
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedBooking, setSelectedBooking] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data } = useGetAllBookingsQuery(rtkoptions);
 
@@ -128,7 +129,7 @@ const AdminBookingPage = () => {
         </div>
         <Table
           headers={headers}
-          data={allBookings ?? []}
+          data={allBookings?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: false,
             delete: true,
@@ -136,6 +137,10 @@ const AdminBookingPage = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(allBookings?.length / 10)}
         />
 
         {showBookingModal && (

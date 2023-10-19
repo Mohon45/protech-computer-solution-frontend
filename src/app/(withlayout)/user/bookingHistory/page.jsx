@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 const UserBookingHistoryPage = () => {
   const [allBookingHistory, setAllBookingHistory] = useState([]);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const { data } = useGetUserBookingsQuery(rtkoptions);
   const [userUpdateBooking, resultUpdate] = useUserUpdateBookingMutation();
@@ -74,7 +75,7 @@ const UserBookingHistoryPage = () => {
       {loading && <Loader forProcess={true} />}
       <Table
         headers={headersTemp}
-        data={allBookingHistory}
+        data={allBookingHistory?.slice(10 * (page - 1), 10 * page)}
         showActions={{
           edit: false,
           delete: false,
@@ -83,6 +84,10 @@ const UserBookingHistoryPage = () => {
           cancel: true,
         }}
         handleActionClick={handleActionClick}
+        currentPage={page}
+        setPage={setPage}
+        itemsPerPage={10}
+        totalPages={Math.ceil(allBookingHistory?.length / 10)}
       />
     </div>
   );

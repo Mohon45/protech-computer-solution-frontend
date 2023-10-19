@@ -17,6 +17,7 @@ const ManageUsersPage = () => {
   const [viewOrEdit, setViewOrEdit] = useState("none");
   const [selectedUser, setSelectedUser] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data } = useGetAllUserQuery(rtkoptions);
 
@@ -120,7 +121,7 @@ const ManageUsersPage = () => {
         </div>
         <Table
           headers={headers}
-          data={filteredItems ?? []}
+          data={filteredItems?.slice(10 * (page - 1), 10 * page)}
           showActions={{
             edit: true,
             delete: true,
@@ -128,6 +129,10 @@ const ManageUsersPage = () => {
             cancel: false,
           }}
           handleActionClick={handleActionClick}
+          currentPage={page}
+          setPage={setPage}
+          itemsPerPage={10}
+          totalPages={Math.ceil(filteredItems?.length / 10)}
         />
 
         {showUserModal && (

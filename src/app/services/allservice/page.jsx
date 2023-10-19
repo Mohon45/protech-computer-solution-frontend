@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import { useGetServicesQuery } from "@/redux/api/serviceApi";
 import { rtkoptions } from "@/utils/rtkOption";
+import Pagination from "@/components/UIComponets/Pagination";
 
 const AllServicePage = () => {
   const [loading, setLoading] = useState(true);
   const [allServices, setAllServices] = useState([]);
   const [priceRange, setPriceRange] = useState(100000);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [currentPageValue, setCurrentPageValue] = useState(page);
   const { data } = useGetServicesQuery(rtkoptions);
 
   useEffect(() => {
@@ -104,6 +107,13 @@ const AllServicePage = () => {
               </div>
             ))}
           </div>
+          <Pagination
+            currentPage={currentPageValue}
+            itemsPerPage={9}
+            totalPages={Math.ceil(filteredItems?.length / 9)}
+            setPage={setPage}
+            setCurrentPage={setCurrentPageValue}
+          />
         </div>
       </div>
     </div>

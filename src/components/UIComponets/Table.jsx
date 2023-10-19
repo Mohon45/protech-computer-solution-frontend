@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { useRouter } from "next/navigation";
+import Pagination from "./Pagination";
 
 const Table = ({
   headers,
@@ -16,8 +17,13 @@ const Table = ({
     cancel: false,
   },
   handleActionClick,
+  currentPage,
+  totalPages,
+  itemsPerPage,
+  setPage,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [currentPageValue, setCurrentPageValue] = useState(currentPage);
   const [rows, setRows] = useState([]);
   const router = useRouter();
   const getItemData = (rowItem, itemKey, headerItem = null) => {
@@ -145,7 +151,7 @@ const Table = ({
           </tbody>
         </table>
 
-        {/* <div className="sticky bg-white py-2 bottom-0 left-0 right-0">
+        <div className=" bg-white py-2 bottom-0 left-0 right-0">
           {currentPage ? (
             <Pagination
               currentPage={currentPageValue}
@@ -155,7 +161,7 @@ const Table = ({
               setCurrentPage={setCurrentPageValue}
             />
           ) : null}
-        </div> */}
+        </div>
       </div>
     );
 };

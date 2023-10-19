@@ -67,14 +67,17 @@ export default function Home() {
         </h1>
 
         <div className="flex items-center">
-          <div className="w-[50%]">
+          <div className="w-[50%]" data-aos="fade-up">
             <Image
               alt="image "
               src={upcomingServiceImage}
               className="md:w-[60%] mx-auto"
             />
           </div>
-          <div className="w-[50%] flex flex-col md:flex-row justify-evenly items-center">
+          <div
+            className="w-[50%] flex flex-col md:flex-row justify-evenly items-center"
+            data-aos="fade-left"
+          >
             <div className="bg-brand w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-md py-5">
               <Image
                 alt="image "
