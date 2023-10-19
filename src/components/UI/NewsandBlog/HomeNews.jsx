@@ -1,4 +1,7 @@
 import Image from "next/image";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 import NewsImage from "../../../assets/news.jpg";
 import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
 import { rtkoptions } from "@/utils/rtkOption";
@@ -10,65 +13,65 @@ const HomeNews = () => {
 
   useEffect(() => {
     if (data?.data) {
-      console.log(data?.data);
+      const tempBlogs = data?.data?.slice(0, 3);
+      setHomeBlogs(tempBlogs);
     }
   }, [data?.data]);
+
+  let settings = {
+    dots: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    autoplay: true,
+    pauseOnHover: false,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   return (
-    <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 pb-10">
-      <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image
-          alt="image "
-          src={NewsImage}
-          className="rounded-tl-md rounded-tr-md"
-        />
-        <div className="p-3">
-          <h1 className="text-lg font-semibold">
-            How To Back Up An Android Just In Case
-          </h1>
-          <p className="my-2 italic">Published: 10-10-2023</p>
-          <p>
-            Unfortunately, it his harder to back up an Android than it is to
-            back
-          </p>
-          <p className="mt-2 text-brand font-bold">READ MORE +</p>
-        </div>
-      </div>
-      <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image
-          alt="image "
-          src={NewsImage}
-          className="rounded-tl-md rounded-tr-md"
-        />
-        <div className="p-3">
-          <h1 className="text-lg font-semibold">
-            How To Back Up An Android Just In Case
-          </h1>
-          <p className="my-2 italic">Published: 10-10-2023</p>
-          <p>
-            Unfortunately, it his harder to back up an Android than it is to
-            back
-          </p>
-          <p className="mt-2 text-brand font-bold">READ MORE +</p>
-        </div>
-      </div>
-      <div className="w-[70%] mx-auto shadow-xl rounded-md">
-        <Image
-          alt="image "
-          src={NewsImage}
-          className="rounded-tl-md rounded-tr-md"
-        />
-        <div className="p-3">
-          <h1 className="text-lg font-semibold">
-            How To Back Up An Android Just In Case
-          </h1>
-          <p className="my-2 italic">Published: 10-10-2023</p>
-          <p>
-            Unfortunately, it his harder to back up an Android than it is to
-            back
-          </p>
-          <p className="mt-2 text-brand font-bold">READ MORE +</p>
-        </div>
-      </div>
+    <div className="w-[90%] mx-auto pb-10">
+      <Slider {...settings}>
+        {homeBlogs?.map((item, index) => (
+          <div key={index} className="mb-5">
+            <div className="w-[400px] h-[500px] shadow-xl rounded-md mx-5">
+              <Image
+                alt="image "
+                src={item?.image}
+                width={400}
+                height={300}
+                className="rounded-tl-md rounded-tr-md h-[300px]"
+              />
+              <div className="p-3">
+                <h1 className="text-lg font-semibold">{item?.title}</h1>
+                <p className="my-2 italic">Published: {item?.publishedDate}</p>
+                <p className=" text-justify">
+                  {item?.description?.slice(0, 100)}
+                </p>
+                <p className="mt-2 text-brand font-bold absolute bottom-10">
+                  READ MORE +
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };

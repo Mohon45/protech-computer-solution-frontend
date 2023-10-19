@@ -16,7 +16,7 @@ export const cartApi = baseApi.injectEndpoints({
         url: "/cart",
         method: "GET",
       }),
-      pollingInterval: 3000,
+      providesTags: ["Carts"],
     }),
 
     removeCartItem: build.mutation({

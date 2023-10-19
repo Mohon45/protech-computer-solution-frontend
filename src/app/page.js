@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import ServicePage from "@/components/UI/SpecifiqService";
 import HomeReview from "@/components/UI/UserReviewSection/HomeReview";
 import HomeNews from "@/components/UI/NewsandBlog/HomeNews";
+import ProcessPage from "@/components/UI/Process";
 
 export default function Home() {
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function Home() {
             <h1 className="text-2xl font-semibold">
               700+ Combined Reviews Across 2 Chicagoland Locations
             </h1>
-            <button className="flex items-center bg-red-700 text-white px-5 py-4 rounded-lg mt-2">
+            <button className="flex items-center bg-brand text-white px-5 py-3 rounded-lg mt-2">
               Book a service <Icon icon="pajamas:long-arrow" className="ml-2" />
             </button>
           </div>
@@ -154,6 +155,48 @@ export default function Home() {
         </div>
       </div>
 
+      <div className=" bg-[url('../assets/why.jpg')] bg-cover bg-no-repeat flex justify-end">
+        <div className="bg-[#C7F3E1] w-[600px] mr-28 my-10 p-10">
+          <h1 className="text-5xl font-bold font-mono">WHY CHOOSE US?</h1>
+          <p className="my-5 text-lg">
+            We service with pride, quality, and integrity! We staff only the
+            highest skilled technicians who are the most efficient at finding
+            the root of your issue and can produce the best results. Our team is
+            a tight-knit group of people with genuine passion for our work.
+          </p>
+          <div className="grid grid-cols-2">
+            <div className="flex items-center mb-4">
+              <Icon
+                icon="fluent-emoji-high-contrast:money-bag"
+                width={30}
+                className="mr-3"
+              />
+              <h1 className="text-lg font-bold">SAVE MONEY</h1>
+            </div>
+            <div className="flex items-center mb-4">
+              <Icon
+                icon="icon-park:setting-computer"
+                width={30}
+                className="mr-3"
+              />
+              <h1 className="text-lg font-bold">GET BACK TO WORK</h1>
+            </div>
+            <div className="flex items-center mb-4">
+              <Icon icon="icon-park-outline:time" width={30} className="mr-3" />
+              <h1 className="text-lg font-bold">SAVE TIME</h1>
+            </div>
+            <div className="flex items-center mb-4">
+              <Icon icon="fa6-solid:hand-peace" width={30} className="mr-3" />
+              <h1 className="text-lg font-bold">REGAIN YOUR PEACE</h1>
+            </div>
+            <div className="flex items-center mb-4">
+              <Icon icon="ei:like" width={35} className="mr-2" />
+              <h1 className="text-lg font-bold">MAKE A DIFFERENCE</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div>
         <h1 className="text-2xl md:text-5xl font-bold text-center flex items-center justify-center py-10">
           Client Reviews
@@ -166,6 +209,13 @@ export default function Home() {
           Letest News & Blog
         </h1>
         <HomeNews />
+      </div>
+
+      <div>
+        <h1 className="text-2xl md:text-5xl font-bold text-center flex items-center justify-center py-10">
+          OUR WORK PROCESS
+        </h1>
+        <ProcessPage />
       </div>
     </main>
   );

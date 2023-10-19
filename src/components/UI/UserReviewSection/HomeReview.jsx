@@ -1,11 +1,24 @@
+"use client";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { useEffect, useState } from "react";
+import { useGetAllReviewsQuery } from "@/redux/api/serviceApi";
+import { rtkoptions } from "@/utils/rtkOption";
+import Rating from "@/components/UIComponets/Rating";
 
 const HomeReview = () => {
+  const [allReviews, setAllReviews] = useState([]);
+  const { data } = useGetAllReviewsQuery(rtkoptions);
+  useEffect(() => {
+    if (data?.data) {
+      setAllReviews(data?.data);
+    }
+  }, [data?.data]);
+
   let settings = {
     dots: true,
-    infinite: false,
     autoplaySpeed: 2000,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -34,61 +47,19 @@ const HomeReview = () => {
   return (
     <div className="w-[90%] mx-auto pb-10">
       <Slider {...settings}>
-        <div>
-          <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4">
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              optio, natus enim, iste ipsum adipisci facere cum laboriosam
-              laudantium itaque illum ipsam quod sint ducimus sapiente vel
-              suscipit laborum alias.
-            </p>
-            <h1 className="text-xl font-bold mt-6">User Name</h1>
+        {allReviews?.map((item, index) => (
+          <div key={index}>
+            <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4 h-[200px]">
+              <p className="text-justify">{item?.comments?.slice(0, 100)}</p>
+              <p className="absolute bottom-20 italic">
+                <Rating rating={item?.rating} />
+              </p>
+              <h1 className="text-xl font-bold mt-6 absolute bottom-10 italic">
+                {item?.userName}
+              </h1>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4">
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              optio, natus enim, iste ipsum adipisci facere cum laboriosam
-              laudantium itaque illum ipsam quod sint ducimus sapiente vel
-              suscipit laborum alias.
-            </p>
-            <h1 className="text-xl font-bold mt-6">User Name</h1>
-          </div>
-        </div>
-        <div>
-          <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4">
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              optio, natus enim, iste ipsum adipisci facere cum laboriosam
-              laudantium itaque illum ipsam quod sint ducimus sapiente vel
-              suscipit laborum alias.
-            </p>
-            <h1 className="text-xl font-bold mt-6">User Name</h1>
-          </div>
-        </div>
-        <div>
-          <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4">
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              optio, natus enim, iste ipsum adipisci facere cum laboriosam
-              laudantium itaque illum ipsam quod sint ducimus sapiente vel
-              suscipit laborum alias.
-            </p>
-            <h1 className="text-xl font-bold mt-6">User Name</h1>
-          </div>
-        </div>
-        <div>
-          <div className=" outline outline-brand p-5 rounded-md shadow-xl my-5 mx-4">
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              optio, natus enim, iste ipsum adipisci facere cum laboriosam
-              laudantium itaque illum ipsam quod sint ducimus sapiente vel
-              suscipit laborum alias.
-            </p>
-            <h1 className="text-xl font-bold mt-6">User Name</h1>
-          </div>
-        </div>
+        ))}
       </Slider>
     </div>
   );

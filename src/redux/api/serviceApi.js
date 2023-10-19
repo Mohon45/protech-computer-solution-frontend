@@ -18,6 +18,15 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Services"],
     }),
+
+    getAllReviews: build.query({
+      query: () => ({
+        url: "/service/reviews",
+        method: "GET",
+      }),
+      providesTags: ["Services"],
+    }),
+
     getServiceDetails: build.query({
       query: (id) => ({
         url: `/service/details/${id}`,
@@ -40,6 +49,7 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Services"],
     }),
+
     userReviewService: build.mutation({
       query: (data) => ({
         url: `/service/review/${data.id}`,
@@ -54,6 +64,7 @@ export const serviceApi = baseApi.injectEndpoints({
 export const {
   useCreateServiceMutation,
   useGetServicesQuery,
+  useGetAllReviewsQuery,
   useGetServiceDetailsQuery,
   useUpdateServiceMutation,
   useDeleteServiceMutation,

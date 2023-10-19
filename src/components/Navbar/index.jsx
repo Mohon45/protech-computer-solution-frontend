@@ -40,6 +40,7 @@ const NavbarPage = () => {
     try {
       await logout();
       dispatch(setUser(null));
+      router.push("/login");
       setShowModal(false);
     } catch (error) {
       console.log(error);
@@ -130,7 +131,7 @@ const NavbarPage = () => {
             </li>
             <li>
               <Link
-                href="/"
+                href="/contact"
                 className="text-lg font-semibold hover:bg-transparent hover:text-brand"
               >
                 Contact
@@ -184,15 +185,11 @@ const NavbarPage = () => {
                   )}
                   {user?.role === "user" && (
                     <li>
-                      <Link href="/profile" className="justify-between">
-                        <li>
-                          <Link
-                            href="/user/bookingHistory"
-                            className="justify-between"
-                          >
-                            User Dashboard
-                          </Link>
-                        </li>
+                      <Link
+                        href="/user/bookingHistory"
+                        className="justify-between"
+                      >
+                        User Dashboard
                       </Link>
                     </li>
                   )}

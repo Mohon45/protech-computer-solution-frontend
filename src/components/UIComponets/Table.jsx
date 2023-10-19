@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
+import { useRouter } from "next/navigation";
 
 const Table = ({
   headers,
@@ -11,13 +12,14 @@ const Table = ({
     edit: false,
     delete: false,
     view: false,
+    details: false,
     cancel: false,
   },
   handleActionClick,
 }) => {
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
-
+  const router = useRouter();
   const getItemData = (rowItem, itemKey, headerItem = null) => {
     let keys = itemKey.split(".");
     let item = "";
@@ -37,6 +39,7 @@ const Table = ({
       showActions.edit ||
       showActions.delete ||
       showActions.view ||
+      showActions.details ||
       showActions.cancel
     );
   };
@@ -62,6 +65,7 @@ const Table = ({
               {(showActions.edit ||
                 showActions.delete ||
                 showActions.view ||
+                showActions.details ||
                 showActions.cancel) && <th>Actions</th>}
             </tr>
           </thead>
@@ -97,6 +101,19 @@ const Table = ({
                           className="text-[22px] text-gray hover:text-brand hover:cursor-pointer"
                           onClick={() => handleActionClick("edit", item._id)}
                         />
+                      </div>
+                    )}
+                    {showActions.details && (
+                      <div title="details">
+                        <div title="View">
+                          <Icon
+                            onClick={() =>
+                              router.push(`/services/${item.servie_id}`)
+                            }
+                            icon="basil:eye-solid"
+                            className="text-[30px] hover:scale-105 duration-75 text-gray hover:text-brand mr-2 cursor-pointer"
+                          />
+                        </div>
                       </div>
                     )}
                     {showActions.cancel && (

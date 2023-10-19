@@ -21,6 +21,7 @@ const UserBookingHistoryPage = () => {
       const tempData = data?.data?.map((item, index) => {
         return {
           _id: item._id,
+          servie_id: item.service?._id,
           bookingDate: item?.date,
           serviceName: item?.service?.title,
           location: item?.service?.location,
@@ -37,7 +38,6 @@ const UserBookingHistoryPage = () => {
     setLoading(true);
     try {
       const result = await userUpdateBooking(id);
-      console.log(result);
       if (result?.data?.data) {
         toast.success("SuccessFully Cancel Your Booking");
         setLoading(false);
@@ -69,7 +69,6 @@ const UserBookingHistoryPage = () => {
         break;
     }
   };
-
   return (
     <div className="py-10 px-8">
       {loading && <Loader forProcess={true} />}
@@ -80,6 +79,7 @@ const UserBookingHistoryPage = () => {
           edit: false,
           delete: false,
           view: false,
+          details: true,
           cancel: true,
         }}
         handleActionClick={handleActionClick}

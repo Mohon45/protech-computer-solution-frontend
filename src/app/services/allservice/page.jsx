@@ -29,7 +29,7 @@ const AllServicePage = () => {
       item?.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item?.category?.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const isPriceMatch = !priceRange || item?.maxPrice <= priceRange;
+    const isPriceMatch = !priceRange || item?.maxPrice < priceRange;
 
     return isNameMatch && isPriceMatch;
   });

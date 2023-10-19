@@ -49,6 +49,7 @@ const ProfilePage = () => {
   };
 
   const imageUploadHandler = async (e) => {
+    setLoading(true);
     const selectedImage = e.target.files[0];
     if (!selectedImage) {
       return;
@@ -73,6 +74,7 @@ const ProfilePage = () => {
 
       const imageUrl = response.data.data.display_url;
       setUploadImageUrl(imageUrl);
+      setLoading(false);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -91,6 +93,7 @@ const ProfilePage = () => {
       if (result.data?.data) {
         setLoading(false);
         toast.success("profile updated");
+        setUploadImageUrl("");
       }
     } catch (error) {
       console.log(error);
