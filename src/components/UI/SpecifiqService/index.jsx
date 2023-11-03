@@ -6,12 +6,14 @@ import PhoneRepair from "./components/PhoneRepair";
 import PcRepair from "./components/PcRepair";
 import MacbookRepair from "./components/MacbookRepair";
 import MotherboardRepair from "./components/MotherboardRepair";
+import Link from "next/link";
 
 const ServicePage = () => {
   const [phone, setPhone] = useState(true);
   const [pc, setPc] = useState(false);
   const [macbook, setMacbook] = useState(false);
   const [motherboard, setMotherboard] = useState(false);
+
   const onclickHandler = (name) => {
     if (name === "phone") {
       setPhone(true);
@@ -73,13 +75,13 @@ const ServicePage = () => {
           <Icon icon="bi:motherboard" width={80} className="mx-auto" />
           <h1 className="text-xl font-bold my-4">MOTHERBOARD </h1>
         </div>
-        <div
+        <Link
           className="w-[250px] text-center shadow-xl  py-5 hover:bg-brand rounded-md outline outline-1 outline-brand cursor-pointer hover:text-white my-3"
-          onClick={() => onclickHandler("others")}
+          href="/services/allservice"
         >
           <Icon icon="ic:round-read-more" width={80} className="mx-auto" />
           <h1 className="text-xl font-bold my-4">OTHERS</h1>
-        </div>
+        </Link>
       </div>
 
       <div className="w-[80%] h-[400px] mx-auto  my-8 rounded-md shadow-2xl hidden md:block">
